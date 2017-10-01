@@ -20,9 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4765785454101762}
   - component: {fileID: 33935750062598742}
-  - component: {fileID: 23973343445927274}
-  - component: {fileID: 64844276302624288}
-  - component: {fileID: 114929046594856146}
+  - component: {fileID: 114412817481385296}
+  - component: {fileID: 23525216611051010}
+  - component: {fileID: 64625077474812234}
   m_Layer: 0
   m_Name: TileMap
   m_TagString: Untagged
@@ -43,7 +43,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23973343445927274
+--- !u!23 &23525216611051010
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -56,7 +56,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 09552e5f22504614d896cd3c88a057a1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -82,7 +82,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1856004841004618}
   m_Mesh: {fileID: 0}
---- !u!64 &64844276302624288
+--- !u!64 &64625077474812234
 MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -96,7 +96,7 @@ MeshCollider:
   m_InflateMesh: 0
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 0}
---- !u!114 &114929046594856146
+--- !u!114 &114412817481385296
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -107,3 +107,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e223b4dcac711e4f9f3305400f288ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  size_x: 50
+  size_z: 50
+  tileSize: 1

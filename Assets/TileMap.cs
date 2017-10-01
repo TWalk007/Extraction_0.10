@@ -2,88 +2,90 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[ExecuteInEditMode] // Tells Unity to run this script in the editor.
+
 [RequireComponent (typeof(MeshFilter))]
-[RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(MeshCollider))]
-/*Having the above makes sure when this script is dropped on an object it has these things it needs.  
- If not it automatically creates them.*/
+[RequireComponent(typeof(MeshRenderer))]
 
 public class TileMap : MonoBehaviour {
-        
-    
+
+    public int size_x = 100;
+    public int size_z = 50;
+    public float tileSize = 1.0f;
+
 	void Start () {
         BuildMesh();
-
 	}
 
     void BuildMesh()
     {
         Mesh mesh = new Mesh();
 
+        int numTiles = size_x * size_z;
+        int numTris = numTiles * 2;  // There are twice as many triangles as there are quads (tiles).
 
-        /*
-         * This is where we'll generate the mesh data.
-         * We need an array to capture all of the Vector3 points.  Then we have to specify the size when we create it.
-         * Note that we'll start with a single mesh which has 4 points.
-         */
-        Vector3[] vertices = new Vector3[4];
+        int vsize_x = size_x + 1;  // The vertices size is always one more than the tile size so we add 1.
+        int vsize_z = size_z + 1;  // Same in the "z" direction as the x.
+        int numVerts = vsize_x * vsize_z;
 
-        // There are 2 triangles with 3 points each.  We need to capture the total vertices used for each triangle.
-        int[] triangles = new int[ 2 * 3];
+        Vector3[] vertices = new Vector3[ numVerts ];
+        int[] triangles = new int[ numTris * 3];  // There are 3 vertices per triangle.
+        Vector3[] normals = new Vector3[ numVerts ];
+        Vector2[] uv = new Vector2[ numVerts ];
 
-        /*
-         * Collects the directional data for each vertices that we've collected above.  If we would like a surface that isn't smooth
-         * then the we would need to create 2 normal directions at the same vertices locations where triangles share vertices.
-        */
-        Vector3[] normals = new Vector3[4];
+        for(int z=0; z < vsize_z; z++)  // We're using "vsize_" as we are creating the vertices first before the triangles.
+        {
+            for (int x = 0; x < vsize_x; x++)  // First we'll fill out the horizontal "X" direction, then move up a row  in the "z" direction.
+            {  // Multiply by "z" will specify the row it's on.  Add "x" to the vsize_x will keep track of the horizontal place.
+               // Remember the brackets below specify the "index" of the array.  Where to place the information generated.
+                vertices [z * vsize_x + x] = new Vector3(x * tileSize, 0, z * tileSize);
+                normals [z * vsize_x + x] = Vector3.up;
 
-        // Since we are making this smooth we only need 4 uv directions stored, one for each vertex.
-        Vector2[] uv = new Vector2[4];
+                // When x=0, we want our uv.x= 0.
+                // When x = 101, we want our uv.x = 1.
+                // So we can say uv.x = x / vsize_x. (gives a percentage or a float value less than 1)
+                // Now this will give us an integer so we need to convert it to a float.
+                uv[z * vsize_x + x] = new Vector2( (float) x / size_x, (float) z / size_z );
+            }
+        }
 
-        // Now that they are created we are going to loop and initialize these.  Remember to use the z direction as y = height above ground.
-        vertices[0] = new Vector3(0, 0, 0);
-        vertices[1] = new Vector3(1, 0, 0);
-        vertices[2] = new Vector3(0, 0, -1);
-        vertices[3] = new Vector3(1, 0, -1);
+        for (int z = 0; z < size_z; z++)  // We changed it to be the actual size, not the vertices size for triangle generation.
+        {
+            for (int x = 0; x < size_x; x++)
+            {
+                // For each one of these we're going to create a pair of triangles.
+                // Z and X are defining a quad, so we'll need to index the quad as we generate.
+                int quadIndex = z * size_x + x;  // Just like in the above loops it is keeping track of the array index this way.
+                int triOffset = quadIndex * 6; // There are 3 points per triangle and 2 triangles in a quad.  so 3 * 2 = 6.
 
-        triangles[0] = 0;
-        triangles[1] = 3;
-        triangles[2] = 2;
 
-        triangles[3] = 0;
-        triangles[4] = 1;
-        triangles[5] = 3;
+                // This is 0, 1, 0 as those are the coordinate to build our triangle... we'll say triangle "A"
+                // We need to have an offset to make sure we're making the correct triangle so we use the same as above:
+                // "z * vsize_x + x" before we tell it the shape with  the rest of the equation.
+                // Remember the left brackets tell the array where to place the info, we still need the place on the right side to grab the correct vertices.
+                triangles[triOffset + 0] = z * vsize_x + x + 0;
+                triangles[triOffset + 1] = z * vsize_x + x + vsize_x + 0;
+                triangles[triOffset + 2] = z * vsize_x + x + vsize_x + 1;
 
-        normals[0] = Vector3.up;
-        normals[1] = Vector3.up;
-        normals[2] = Vector3.up;
-        normals[3] = Vector3.up;
+                triangles[triOffset + 3] = z * vsize_x + x +           0;
+                triangles[triOffset + 4] = z * vsize_x + x + vsize_x + 1;
+                triangles[triOffset + 5] = z * vsize_x + x +           1; 
+            }
+        }
 
-        // UV coordinates go from 0,0 - 1,1.  It's always between 0-1 and is a float.
-        // If the bitmap comes out upside down then you don't have the uv's mapped to the right locations (same location as where the correct
-        // vertices are.  Remember unity's uv mappes build from bottom up instead of top down which is how we're building the map above.
-        uv[0] = new Vector2(0, 1); // top left of surface
-        uv[1] = new Vector2(1, 1); // top right of surface
-        uv[2] = new Vector2(0, 0); // bottom right of surface
-        uv[3] = new Vector2(1, 0); // bottom left of surface
 
-        /*
-         * A mesh needs a series of information to be filled out. Every triangle has 3 points and the mesh is made of triangles.
-         * So we need vertices, triangles, and normals (which direction the vertices are facing).  After generating these things we'll
-         * assign them to the cached (placed in memory) holders below: vertices, triangles, and normals.
-        */
+
         mesh.vertices = vertices;
         mesh.triangles = triangles;
         mesh.normals = normals;
         
-
-        // Assign our mesh to our filterer/renderer/collider. (We don't actually assign it to the renderer, but for now let's "pretend").
         MeshFilter _meshFilter = GetComponent<MeshFilter>();
         MeshRenderer _meshRenderer = GetComponent<MeshRenderer>();
         MeshCollider _meshCollider = GetComponent<MeshCollider>();
         mesh.uv = uv;
 
-        // We have to assign our mesh component to our meshfilter's mesh slot or else we won't see it.
         _meshFilter.mesh = mesh;
         _meshCollider.sharedMesh = mesh;
     }
