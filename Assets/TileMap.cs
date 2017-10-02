@@ -19,7 +19,7 @@ public class TileMap : MonoBehaviour {
         BuildMesh();
 	}
 
-    void BuildMesh()
+    public void BuildMesh()
     {
         Mesh mesh = new Mesh();
 
