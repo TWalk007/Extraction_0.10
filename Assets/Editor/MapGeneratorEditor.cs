@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor (typeof (MapGenerator))]
-public class MapGeneratorEditor : Editor {
+[CustomEditor(typeof(NoiseMapGenerator))]
+public class MapGeneratorEditor : Editor
+{
 
     public override void OnInspectorGUI()
     {
-        MapGenerator mapGen = (MapGenerator)target;
+        NoiseMapGenerator mapGen = (NoiseMapGenerator)target;
         if (DrawDefaultInspector())
         {
             if (mapGen.autoUpdate)
@@ -16,8 +17,8 @@ public class MapGeneratorEditor : Editor {
                 mapGen.GenerateMap();
             }
         }
-        
-        
+
+
         if (GUILayout.Button("Generate"))
         {
             mapGen.GenerateMap();
