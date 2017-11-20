@@ -53,9 +53,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drawMode: 2
-  mapWidth: 128
-  mapHeight: 128
-  noiseScale: 128
+  mapChunkSize: 241
+  levelOfDetail: 0
+  noiseScale: 100
   meshHeightMultiplier: 12
   meshHeightCurve:
     serializedVersion: 2
@@ -111,8 +111,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
-  octaves: 5
-  persistence: 0.6
+  octaves: 8
+  persistence: 0.55
   lacunarity: 2
   seed: 0
   offset: {x: 0, y: 0}
@@ -134,7 +134,7 @@ MonoBehaviour:
     height: 0.7
     color: {r: 0.2352941, g: 0.22014074, b: 0.015570934, a: 0}
   - name: Mountains
-    height: 0.9
+    height: 0.8
     color: {r: 0.43252593, g: 0.46113825, b: 0.4705882, a: 0}
   - name: Snow
     height: 1

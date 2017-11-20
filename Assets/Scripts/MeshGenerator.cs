@@ -7,7 +7,7 @@ public static class MeshGenerator {
     // For multithreading we will return meshData.  That way when the mesh is generating the game doesn't freeze up.  We'll generate the mesh
     // data inside the thread and then outside the thread we can "get the new mesh".
 
-    public static MeshData GenerateTerrainMesh (float[,] heightMap, float heightMultiplier, AnimationCurve heightCurve)
+    public static MeshData GenerateTerrainMesh (float[,] heightMap, float heightMultiplier, AnimationCurve heightCurve, int levelOfDetail)
     {
         int width = heightMap.GetLength(0);
         int height = heightMap.GetLength(1);
@@ -16,20 +16,23 @@ public static class MeshGenerator {
         float topLeftX = (width - 1) / -2f;
         float TopLeftZ = (height - 1) / 2f;
 
-        MeshData meshData = new MeshData(width, height);
+        int meshSimplificationIncrement = (levelOfDetail == 0)?1:levelOfDetail * 2; //This translates to: if(levelOfDetail == 0), then (?) set it to 1, or else (:) set it to that.
+        int verticesPerLine = (width-1)/meshSimplificationIncrement+1;
+
+        MeshData meshData = new MeshData(verticesPerLine, verticesPerLine);
         int vertexIndex = 0;
 
-        for (int y = 0; y < height; y++)
+        for (int y = 0; y < height; y+= meshSimplificationIncrement)
         {
-            for (int x = 0; x < width; x++)
+            for (int x = 0; x < width; x+= meshSimplificationIncrement)
             {
                 meshData.vertices[vertexIndex] = new Vector3(topLeftX + x, heightCurve.Evaluate(heightMap [x,y]) * heightMultiplier, TopLeftZ - y);
                 meshData.uvs[vertexIndex] = new Vector2(x/(float)width, y/(float)height);
 
                 if (x < width -1 && y < height - 1)
                 {
-                    meshData.AddTriangle(vertexIndex, vertexIndex + width + 1, vertexIndex + width); // The first triangle
-                    meshData.AddTriangle(vertexIndex + width + 1, vertexIndex, vertexIndex + 1); // The second triangle
+                    meshData.AddTriangle(vertexIndex, vertexIndex + verticesPerLine + 1, vertexIndex + verticesPerLine); // The first triangle
+                    meshData.AddTriangle(vertexIndex + verticesPerLine + 1, vertexIndex, vertexIndex + 1); // The second triangle
                 }
 
                 vertexIndex++;

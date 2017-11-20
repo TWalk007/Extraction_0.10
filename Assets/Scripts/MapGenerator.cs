@@ -8,12 +8,13 @@ public class MapGenerator : MonoBehaviour {
     public enum DrawMode {NoiseMap, ColorMap, Mesh};
     public DrawMode drawMode;
 
-    public int mapWidth;
-    public int mapHeight;
+    public const int mapChunkSize = 241;
+    [Range(0,6)]
+    public int levelOfDetail;
     public float noiseScale;
     public float meshHeightMultiplier;
     public AnimationCurve meshHeightCurve;
-
+    [Range(5,12)]
     public int octaves;
     [Range(0,1)]
     public float persistence;
@@ -28,13 +29,13 @@ public class MapGenerator : MonoBehaviour {
 
     public void GenerateMap()
     {
-        float[,] noiseMap = Noise.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScale, octaves, persistence, lacunarity, offset);
-        Color[] colorMap = new Color[mapWidth * mapHeight];
+        float[,] noiseMap = Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistence, lacunarity, offset);
+        Color[] colorMap = new Color[mapChunkSize * mapChunkSize];
 
         //Loop through the noise map to get assign the color values.
-        for (int y = 0; y < mapHeight; y++)
+        for (int y = 0; y < mapChunkSize; y++)
         {
-            for (int x = 0; x < mapWidth; x++)
+            for (int x = 0; x < mapChunkSize; x++)
             {
                 float currentHeight = noiseMap[x,y];  // The current height at this coordinate in the noiseMap.
 
@@ -44,7 +45,7 @@ public class MapGenerator : MonoBehaviour {
                     if (currentHeight <= regions[i].height)
                     {
                         //Before we break we want to assign the color for this place.
-                        colorMap[y * mapWidth + x] = regions[i].color;
+                        colorMap[y * mapChunkSize + x] = regions[i].color;
 
                         // This means we've found the region that it falls within so we don't need to check the region we can
                         // move onto the next coordinate.
@@ -64,25 +65,17 @@ public class MapGenerator : MonoBehaviour {
         }
         else if (drawMode == DrawMode.ColorMap)
         {
-            display.DrawTexture(TextureGenerator.TextureFromColorMap(colorMap, mapWidth, mapHeight));
+            display.DrawTexture(TextureGenerator.TextureFromColorMap(colorMap, mapChunkSize, mapChunkSize));
         }
         else if (drawMode == DrawMode.Mesh)
         {
-            display.DrawMesh(MeshGenerator.GenerateTerrainMesh(noiseMap, meshHeightMultiplier, meshHeightCurve), TextureGenerator.TextureFromColorMap(colorMap, mapWidth, mapHeight));
+            display.DrawMesh(MeshGenerator.GenerateTerrainMesh(noiseMap, meshHeightMultiplier, meshHeightCurve, levelOfDetail), TextureGenerator.TextureFromColorMap(colorMap, mapChunkSize, mapChunkSize));
         }
     }
 
     // By default, the OnValidate command is called anytime something is changed in the Editor.
     void OnValidate()
     {
-        if (mapWidth < 1)
-        {
-            mapWidth = 1;
-        }   
-        if (mapHeight < 1)
-        {
-            mapHeight = 1;
-        }
         if (lacunarity < 1)
         {
             lacunarity = 1;
