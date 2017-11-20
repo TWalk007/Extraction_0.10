@@ -52,13 +52,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9adfbda15aede7f47b537d3c62014681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drawMode: 1
-  mapWidth: 64
-  mapHeight: 64
-  noiseScale: 64
-  octaves: 3
-  persistence: 0.483
-  lacunarity: 1.75
+  drawMode: 2
+  mapWidth: 128
+  mapHeight: 128
+  noiseScale: 128
+  meshHeightMultiplier: 12
+  meshHeightCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.22196656
+      value: 0.015637208
+      inSlope: 0.110535584
+      outSlope: 0.110535584
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.5803468
+      value: 0.114888854
+      inSlope: 1.1222638
+      outSlope: 1.1222638
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.7144403
+      value: 0.2690792
+      inSlope: 0.8410226
+      outSlope: 0.8410226
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.75318855
+      value: 0.40730104
+      inSlope: 1.3201611
+      outSlope: 4.465772
+      tangentMode: 1
+    - serializedVersion: 2
+      time: 0.8022932
+      value: 0.6454726
+      inSlope: 2.5836742
+      outSlope: 2.2030525
+      tangentMode: 1
+    - serializedVersion: 2
+      time: 0.8638473
+      value: 0.7987326
+      inSlope: 0.9771285
+      outSlope: 0.9771285
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 1.4782479
+      outSlope: 1.4782479
+      tangentMode: 34
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  octaves: 5
+  persistence: 0.6
+  lacunarity: 2
   seed: 0
   offset: {x: 0, y: 0}
   autoUpdate: 1
@@ -79,7 +134,7 @@ MonoBehaviour:
     height: 0.7
     color: {r: 0.2352941, g: 0.22014074, b: 0.015570934, a: 0}
   - name: Mountains
-    height: 0.8
+    height: 0.9
     color: {r: 0.43252593, g: 0.46113825, b: 0.4705882, a: 0}
   - name: Snow
     height: 1

@@ -7,7 +7,7 @@ public static class MeshGenerator {
     // For multithreading we will return meshData.  That way when the mesh is generating the game doesn't freeze up.  We'll generate the mesh
     // data inside the thread and then outside the thread we can "get the new mesh".
 
-    public static MeshData GenerateTerrainMesh (float[,] heightMap)
+    public static MeshData GenerateTerrainMesh (float[,] heightMap, float heightMultiplier, AnimationCurve heightCurve)
     {
         int width = heightMap.GetLength(0);
         int height = heightMap.GetLength(1);
@@ -23,7 +23,7 @@ public static class MeshGenerator {
         {
             for (int x = 0; x < width; x++)
             {
-                meshData.vertices[vertexIndex] = new Vector3(topLeftX + x, heightMap[x, y], TopLeftZ - y);
+                meshData.vertices[vertexIndex] = new Vector3(topLeftX + x, heightCurve.Evaluate(heightMap [x,y]) * heightMultiplier, TopLeftZ - y);
                 meshData.uvs[vertexIndex] = new Vector2(x/(float)width, y/(float)height);
 
                 if (x < width -1 && y < height - 1)
