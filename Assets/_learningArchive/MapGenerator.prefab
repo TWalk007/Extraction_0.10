@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4855477130741624}
   - component: {fileID: 114302830938488072}
   - component: {fileID: 114839118643594008}
+  - component: {fileID: 114038843715163754}
   m_Layer: 0
   m_Name: MapGenerator
   m_TagString: Untagged
@@ -41,6 +42,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114038843715163754
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1272807325713810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5218228d61ce8a144a4f7aef5f6fbb8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detailLevels:
+  - lod: 0
+    visibleDstThreshold: 64
+  - lod: 2
+    visibleDstThreshold: 128
+  - lod: 4
+    visibleDstThreshold: 196
+  viewer: {fileID: 0}
+  mapMaterial: {fileID: 2100000, guid: be75c807793622e4886526a6106a5813, type: 2}
 --- !u!114 &114302830938488072
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -53,9 +74,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drawMode: 2
-  mapChunkSize: 241
-  levelOfDetail: 0
-  noiseScale: 100
+  editorPreviewLOD: 0
+  noiseScale: 200
+  octaves: 10
+  persistance: 0.5
+  lacunarity: 2.25
+  seed: 0
+  offset: {x: 0, y: 0}
   meshHeightMultiplier: 12
   meshHeightCurve:
     serializedVersion: 2
@@ -111,34 +136,29 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
-  octaves: 8
-  persistence: 0.55
-  lacunarity: 2
-  seed: 0
-  offset: {x: 0, y: 0}
   autoUpdate: 1
   regions:
   - name: Water
     height: 0.25
-    color: {r: 0.16911763, g: 0.44989866, b: 1, a: 0}
+    color: {r: 0.1102941, g: 0.59503055, b: 1, a: 0}
   - name: Water Shallow
     height: 0.3
-    color: {r: 0.3496972, g: 0.5852076, b: 0.9705882, a: 0}
+    color: {r: 0.44117647, g: 0.745639, b: 1, a: 0}
   - name: Sand
     height: 0.35
-    color: {r: 0.5955882, g: 0.58199716, b: 0.3985186, a: 0}
+    color: {r: 0.61764705, g: 0.5887066, b: 0.4269031, a: 0}
   - name: Grass
     height: 0.55
-    color: {r: 0.19619387, g: 0.46323532, b: 0.06812285, a: 0}
+    color: {r: 0.11244484, g: 0.4705882, b: 0.083044976, a: 0}
   - name: Hills
     height: 0.7
-    color: {r: 0.2352941, g: 0.22014074, b: 0.015570934, a: 0}
+    color: {r: 0.25, g: 0.22971603, b: 0.066176474, a: 0}
   - name: Mountains
     height: 0.8
-    color: {r: 0.43252593, g: 0.46113825, b: 0.4705882, a: 0}
+    color: {r: 0.2794118, g: 0.2794118, b: 0.2794118, a: 0}
   - name: Snow
     height: 1
-    color: {r: 0.8602941, g: 0.8602941, b: 0.8602941, a: 0}
+    color: {r: 0.9705882, g: 0.9705882, b: 0.9705882, a: 0}
 --- !u!114 &114839118643594008
 MonoBehaviour:
   m_ObjectHideFlags: 1
