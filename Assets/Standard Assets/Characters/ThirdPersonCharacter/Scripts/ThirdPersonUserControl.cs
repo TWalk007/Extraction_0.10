@@ -35,6 +35,11 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
         private void Update()
         {
+            if (Input.GetKeyDown (KeyCode.Escape))  // Pause the game.
+            {
+                Debug.Break ();
+            }
+
             if (!m_Jump)
             {
                 m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
