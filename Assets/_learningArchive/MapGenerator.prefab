@@ -1,0 +1,176 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1272807325713810}
+  m_IsPrefabParent: 1
+--- !u!1 &1272807325713810
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4855477130741624}
+  - component: {fileID: 114302830938488072}
+  - component: {fileID: 114839118643594008}
+  - component: {fileID: 114038843715163754}
+  m_Layer: 0
+  m_Name: MapGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4855477130741624
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1272807325713810}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114038843715163754
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1272807325713810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5218228d61ce8a144a4f7aef5f6fbb8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detailLevels:
+  - lod: 0
+    visibleDstThreshold: 64
+  - lod: 2
+    visibleDstThreshold: 128
+  - lod: 4
+    visibleDstThreshold: 196
+  viewer: {fileID: 0}
+  mapMaterial: {fileID: 2100000, guid: be75c807793622e4886526a6106a5813, type: 2}
+--- !u!114 &114302830938488072
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1272807325713810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9adfbda15aede7f47b537d3c62014681, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drawMode: 2
+  normalizeMode: 1
+  editorPreviewLOD: 0
+  noiseScale: 150
+  octaves: 9
+  persistance: 0.475
+  lacunarity: 2.5
+  seed: 0
+  offset: {x: 0, y: 0}
+  meshHeightMultiplier: 8
+  meshHeightCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.22196656
+      value: 0.015637208
+      inSlope: 0.110535584
+      outSlope: 0.110535584
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.5803468
+      value: 0.114888854
+      inSlope: 1.1222638
+      outSlope: 1.1222638
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.7144403
+      value: 0.2690792
+      inSlope: 0.8410226
+      outSlope: 0.8410226
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.75318855
+      value: 0.40730104
+      inSlope: 1.3201611
+      outSlope: 4.465772
+      tangentMode: 1
+    - serializedVersion: 2
+      time: 0.8022932
+      value: 0.6454726
+      inSlope: 2.5836742
+      outSlope: 2.2030525
+      tangentMode: 1
+    - serializedVersion: 2
+      time: 0.8638473
+      value: 0.7987326
+      inSlope: 0.9771285
+      outSlope: 0.9771285
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1.05
+      inSlope: 1.6677368
+      outSlope: 1.6677368
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  autoUpdate: 1
+  regions:
+  - name: Water
+    height: 0.27
+    color: {r: 0.1102941, g: 0.59503055, b: 1, a: 0}
+  - name: Water Shallow
+    height: 0.3
+    color: {r: 0.44117647, g: 0.745639, b: 1, a: 0}
+  - name: Sand
+    height: 0.35
+    color: {r: 0.61764705, g: 0.5887066, b: 0.4269031, a: 0}
+  - name: Grass
+    height: 0.55
+    color: {r: 0.11244484, g: 0.4705882, b: 0.083044976, a: 0}
+  - name: Hills
+    height: 0.7
+    color: {r: 0.25, g: 0.22971603, b: 0.066176474, a: 0}
+  - name: Mountains
+    height: 0.8
+    color: {r: 0.2794118, g: 0.2794118, b: 0.2794118, a: 0}
+  - name: Snow
+    height: 0.87
+    color: {r: 0.9705882, g: 0.9705882, b: 0.9705882, a: 0}
+--- !u!114 &114839118643594008
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1272807325713810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e68567b193c735340957328e207aafac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textureRender: {fileID: 0}
+  meshFilter: {fileID: 0}
+  meshRenderer: {fileID: 0}
