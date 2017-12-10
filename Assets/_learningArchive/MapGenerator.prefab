@@ -55,13 +55,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detailLevels:
   - lod: 0
-    visibleDstThreshold: 64
+    visibleDstThreshold: 96
     useForCollider: 0
   - lod: 1
     visibleDstThreshold: 128
     useForCollider: 1
-  - lod: 4
-    visibleDstThreshold: 196
+  - lod: 3
+    visibleDstThreshold: 256
     useForCollider: 0
   viewer: {fileID: 0}
   mapMaterial: {fileID: 2100000, guid: be75c807793622e4886526a6106a5813, type: 2}
@@ -77,71 +77,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drawMode: 2
-  normalizeMode: 1
+  terrainData: {fileID: 11400000, guid: 03c25c136b7d1fb4ea7dc7e56fd59494, type: 2}
+  noiseData: {fileID: 11400000, guid: 781edf7a2e63cf84695d79c9d6759e4e, type: 2}
   editorPreviewLOD: 0
-  noiseScale: 150
-  octaves: 9
-  persistance: 0.475
-  lacunarity: 2.5
-  seed: 0
-  offset: {x: 0, y: 0}
-  useFalloff: 0
-  meshHeightMultiplier: 8
-  meshHeightCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 0.22196656
-      value: 0.015637208
-      inSlope: 0.110535584
-      outSlope: 0.110535584
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 0.5803468
-      value: 0.114888854
-      inSlope: 1.1222638
-      outSlope: 1.1222638
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 0.7144403
-      value: 0.2690792
-      inSlope: 0.8410226
-      outSlope: 0.8410226
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 0.75318855
-      value: 0.40730104
-      inSlope: 1.3201611
-      outSlope: 4.465772
-      tangentMode: 1
-    - serializedVersion: 2
-      time: 0.8022932
-      value: 0.6454726
-      inSlope: 2.5836742
-      outSlope: 2.2030525
-      tangentMode: 1
-    - serializedVersion: 2
-      time: 0.8638473
-      value: 0.7987326
-      inSlope: 0.9771285
-      outSlope: 0.9771285
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 1
-      value: 1.05
-      inSlope: 1.6677368
-      outSlope: 1.6677368
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  autoUpdate: 1
+  autoUpdate: 0
   regions:
   - name: Water
     height: 0.27
